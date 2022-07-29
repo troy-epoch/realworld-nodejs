@@ -1,0 +1,84 @@
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.0",
+        import: ["@key"])
+        
+type Query {
+  listArticles(data: ArticleFilters): [Article]
+  feedArticles: [Article]
+  getArticle(slug: String!): Article
+  getComments(slug: String!): [Comment]
+}
+
+type Mutation {
+  createArticle(data: CreateArticleInput!): Article!
+  updateArticle(data: UpdateArticleInput!): Article!
+  deleteArtilce(slug: String!): MutationResponse!
+  addComment(data: AddCommentInput!): Comment!
+  deleteComment(data: DeleteCommentInput!): MutationResponse!
+  favoriteArticle(slug: String!): Article!
+  unfavoriteArticle(slug: String!): Article!
+}
+
+interface Comment {
+  id: ID!
+  created: String!
+  updated: String!
+  body: String!
+  author: Profile!
+}
+
+type Article implements Comment {
+  id: ID!
+  slug: String!
+  title: String!
+  description: String!
+  body: String!
+  tagList: [String],
+  created: String!
+  updated: String!
+  favorited: Boolean!
+  favoritesCount: Int!
+  author: Profile!
+}
+
+type Profile @key(fields: "email") {
+  email: String!
+}
+
+input ArticleFilters {
+  tag: String
+  author: String
+  favorited: String
+  limit: Int
+  offset: Int
+}
+
+input CreateArticleInput {
+  title: String!
+  description: String!
+  body: String!
+  tags: [String]
+}
+
+input UpdateArticleInput {
+  slug: String!
+  title: String
+  description: String
+  body: String
+}
+
+input AddCommentInput {
+  slug: String!
+  body: String!
+}
+
+input DeleteCommentInput {
+  slug: String!
+  id: ID!
+}
+
+interface MutationResponse {
+  code: Int!
+  success: Boolean!
+  message: String!
+}

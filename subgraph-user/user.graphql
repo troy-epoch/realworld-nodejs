@@ -1,0 +1,83 @@
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.0",
+        import: ["@key"])
+        
+type Query {
+  getUser(id: ID!): User
+  getCurrentUser: User
+  getProfile(email: String!): Profile
+}
+
+type Mutation {
+  createUser(data: CreateUserInput!): UserResponse!
+  loginUser(data: LoginUserInput!): UserResponse!
+  updateUser(data: UpdateUserInput!): MutationResponse!
+  followUser(data: UpdateUserInput!): ProfileResponse!
+  unfollowUser(data: UpdateUserInput!): ProfileResponse!
+}
+
+interface BasicUser {
+  id: ID!
+  username: String!
+  bio: String
+  image: String
+}
+
+type User implements BasicUser {
+  id: ID!
+  username: String!
+  bio: String
+  image: String
+  email: String!
+  password: String!
+}
+
+type Profile implements BasicUser @key(fields: "email") {
+  id: ID!
+  email: String!
+  username: String!
+  bio: String
+  image: String
+  following: Boolean!
+}
+
+input CreateUserInput {
+  username: String!
+  email: String!
+  password: String!
+  bio: String
+  image: String
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  username: String!
+  email: String
+  bio: String
+  image: String
+}
+
+interface MutationResponse {
+  code: Int!
+  success: Boolean!
+  message: String!
+}
+
+type UserResponse implements MutationResponse {
+  code: Int!
+  success: Boolean!
+  message: String!
+  user: User
+  token: String
+}
+
+type ProfileResponse implements MutationResponse {
+  code: Int!
+  success: Boolean!
+  message: String!
+  profile: Profile
+}
