@@ -44,7 +44,7 @@ CREATE TABLE `article` (
    DATABASE_URL="mysql://user:password@host:port/database?schema=public"
 4. terminal\
    a. npx prisma init\
-   b. new folder prisma will be generated, in schema.prisma, change provider to "mysql", need to match step 3's provider, default "postgresql"
+   b. new folder prisma will be generated, in schema.prisma, change provider to "mysql", need to match step 3's provider, default "postgresql"\
    c. npx prisma db pull\
    d. npx prisma generate
 
