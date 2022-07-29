@@ -1,4 +1,6 @@
 # realworld-nodejs
+1. query implemented: getUser, getCurrentUser, getProfile
+2. mutation implemented: createUser, loginUser, createArticle
 
 ## prisma
 1. create database `graphl`
