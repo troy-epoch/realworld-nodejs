@@ -5,6 +5,7 @@
 ## prisma
 1. create database `graphl`
 2. create tables
+```sql
  CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -19,7 +20,8 @@
   UNIQUE(`email`),
   KEY `idx_email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
+```
+```sql
 CREATE TABLE `article` (
   `id` int NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -36,12 +38,15 @@ CREATE TABLE `article` (
   UNIQUE(`slug`),
   KEY `idx_author` (`author`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-3. create .env file and put database cred as 
+```
+
+3. create .env file and put database cred as\
    DATABASE_URL="mysql://user:password@host:port/database?schema=public"
-4. terminal
-   npx prisma init
-   npx prisma db pull
-   npx prisma generate
+4. terminal\
+   a. npx prisma init\
+   b. new folder prisma will be generated, in schema.prisma, change provider to "mysql", need to match step 3's provider, default "postgresql"
+   c. npx prisma db pull\
+   d. npx prisma generate
 
 ## run server
  1. terminal cd subgraph-article, npm install && npm start
@@ -50,12 +55,12 @@ CREATE TABLE `article` (
 
 ## federation
 ### https://www.apollographql.com/tutorials/voyage-part1/publishing-the-subgraphs-with-rover, https://www.apollographql.com/docs/federation/managed-federation/deployment/
-  1. install rover CLI
+  1. install rover CLI\
      terminal curl -sSL https://rover.apollo.dev/nix/latest | sh
-  2. creating env variables in file .env
-     APOLLO_KEY=
-     APOLLO_GRAPH_REF=
-  3. go to apollo studio, create new graph
+  2. creating env variables in file .env\
+     APOLLO_KEY=\
+     APOLLO_GRAPH_REF=\
+  3. go to apollo studio, create new graph\
      a. fill title, and use default Graph Architecture and next
      b. you will see something like below
         APOLLO_KEY=your-graphs-apollo-key \
@@ -66,18 +71,20 @@ CREATE TABLE `article` (
         find APOLLO_KEY and APOLLO_GRAPH_REF, fill them in .env
         APOLLO_KEY=your-graphs-apollo-key
         APOLLO_GRAPH_REF=your-graph-name@current
-     c. authenticate your graph
+     c. authenticate your graph\
         terminal rover config auth, paste APOLLO_KEY
-     d. publish subgraphs
+     d. publish subgraphs\
         terminal
-        
+        ```
         rover subgraph publish <APOLLO_GRAPH_REF> \
         --name user \
         --schema ./subgraph-user/user.graphql \
         --routing-url http://localhost:4001
-
+        ```
+        ```
         rover subgraph publish <APOLLO_GRAPH_REF> \
         --name article \
         --schema ./subgraph-article/article.graphql \
         --routing-url http://localhost:4002
+        ```
     e. go http://localhost:4000 and query
