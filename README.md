@@ -59,22 +59,24 @@ CREATE TABLE `article` (
      terminal curl -sSL https://rover.apollo.dev/nix/latest | sh
   2. creating env variables in file .env\
      APOLLO_KEY=\
-     APOLLO_GRAPH_REF=\
+     APOLLO_GRAPH_REF=
   3. go to apollo studio, create new graph\
-     a. fill title, and use default Graph Architecture and next
-     b. you will see something like below
+     a. fill title, and use default Graph Architecture and next\
+     b. you will see something like below\
+        ```
         APOLLO_KEY=your-graphs-apollo-key \
         rover subgraph publish your-graph-name@current \
         --name products --schema ./products-schema.graphql \
         --routing-url http://products.prod.svc.cluster.local:4001/graphql
+        ```
 
-        find APOLLO_KEY and APOLLO_GRAPH_REF, fill them in .env
-        APOLLO_KEY=your-graphs-apollo-key
-        APOLLO_GRAPH_REF=your-graph-name@current
+        find APOLLO_KEY and APOLLO_GRAPH_REF, fill them in .env\
+        APOLLO_KEY=your-graphs-apollo-key\
+        APOLLO_GRAPH_REF=your-graph-name@current\
      c. authenticate your graph\
         terminal rover config auth, paste APOLLO_KEY
      d. publish subgraphs\
-        terminal
+        terminal\
         ```
         rover subgraph publish <APOLLO_GRAPH_REF> \
         --name user \
