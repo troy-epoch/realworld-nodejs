@@ -54,7 +54,8 @@ CREATE TABLE `article` (
  3. terminal npm install && npm start
 
 ## federation
-### https://www.apollographql.com/tutorials/voyage-part1/publishing-the-subgraphs-with-rover, https://www.apollographql.com/docs/federation/managed-federation/deployment/
+#### https://www.apollographql.com/tutorials/voyage-part1/publishing-the-subgraphs-with-rover
+#### https://www.apollographql.com/docs/federation/managed-federation/deployment/
   1. install rover CLI\
      terminal curl -sSL https://rover.apollo.dev/nix/latest | sh
   2. creating env variables in file .env\
@@ -62,7 +63,7 @@ CREATE TABLE `article` (
      APOLLO_GRAPH_REF=
   3. go to apollo studio, create new graph\
      a. fill title, and use default Graph Architecture and next\
-     b. you will see something like below\
+     b. you will see something like below
         ```
         APOLLO_KEY=your-graphs-apollo-key \
         rover subgraph publish your-graph-name@current \
@@ -74,9 +75,9 @@ CREATE TABLE `article` (
         APOLLO_KEY=your-graphs-apollo-key\
         APOLLO_GRAPH_REF=your-graph-name@current\
      c. authenticate your graph\
-        terminal rover config auth, paste APOLLO_KEY
+        terminal rover config auth, paste APOLLO_KEY\
      d. publish subgraphs\
-        terminal\
+        terminal
         ```
         rover subgraph publish <APOLLO_GRAPH_REF> \
         --name user \
